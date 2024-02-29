@@ -20,7 +20,7 @@ export async function POST({ request, params, url, cookies }) {
 			BA_Array[i] = Math.round(B_Array[i] * (BA / 100));
 		}
 
-		return new Response(JSON.stringify({ A: A_Array, AB: BA_Array, B: B_Array, BA: AB_Array }), {
+		return new Response(JSON.stringify({ A: A_Array, AB: AB_Array, B: B_Array, BA: BA_Array }), {
 			status: 200
 		});
 	} catch (err) {
