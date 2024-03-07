@@ -12,6 +12,7 @@ export async function POST({ request, params, url, cookies }) {
 		let B_Array = [B];
 		let AB_Array = [A * (AB / 100)];
 		let BA_Array = [B * (BA / 100)];
+		let K = 0;
 
 		for (let i = 1; AB_Array[i - 1] != BA_Array[i - 1] && i < 10000; i++) {
 			A_Array[i] = Math.round(A_Array[i - 1] - AB_Array[i - 1] + BA_Array[i - 1]);
@@ -20,9 +21,15 @@ export async function POST({ request, params, url, cookies }) {
 			BA_Array[i] = Math.round(B_Array[i] * (BA / 100));
 		}
 
-		return new Response(JSON.stringify({ A: A_Array, AB: AB_Array, B: B_Array, BA: BA_Array }), {
-			status: 200
-		});
+		K = B_Array[B_Array.length - 1] / A_Array[A_Array.length - 1];
+		K = K.toFixed(2);
+
+		return new Response(
+			JSON.stringify({ A: A_Array, AB: AB_Array, B: B_Array, BA: BA_Array, K: K }),
+			{
+				status: 200
+			}
+		);
 	} catch (err) {
 		return new Response(JSON.stringify({ message: 'Error' }), {
 			status: 500

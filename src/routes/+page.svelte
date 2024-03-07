@@ -15,6 +15,7 @@
 	let B_Array = [B];
 	let AB_Array = [A * (AB / 100)];
 	let BA_Array = [B * (BA / 100)];
+	$: K = 0;
 
 	async function pullData() {
 		const response = await fetch('/api/v1/dataCalc', {
@@ -42,6 +43,7 @@
 		AB_Array = data.AB;
 		B_Array = data.B;
 		BA_Array = data.BA;
+		K = data.K;
 
 		if (Chart.getChart('myChart')) {
 			myChart.destroy();
@@ -147,6 +149,7 @@
 				{/each}
 			</tbody>
 		</table>
+			<p class="kText">K = {K}</p>
 	</div>
 	<div class="chart-container">
 		<canvas id="myChart" height="min-height" bind:this={ctx} />
@@ -160,6 +163,10 @@
 		gap: 20px;
 		padding: 20px;
 		background-color: #f5f5f5;
+	}
+
+	.kText {
+		font-size: 20px;
 	}
 
 	.title {
