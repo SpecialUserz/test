@@ -12,10 +12,21 @@ export async function POST({ request, params, url, cookies }) {
 	if (response.status == 200) {
 		return new Response(
 			JSON.stringify({
-				worked: true
+				valid: true,
+				message: 'Gültiger Lizenzschlüssel.'
 			}),
 			{
 				status: 200
+			}
+		);
+	} else {
+		return new Response(
+			JSON.stringify({
+				valid: false,
+				message: 'Ungültiger Lizenzschlüssel.'
+			}),
+			{
+				status: 300
 			}
 		);
 	}
