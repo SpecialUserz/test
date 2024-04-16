@@ -9,7 +9,9 @@ export async function POST({ request, params, url, cookies }) {
 		body: JSON.stringify({ license_key, device_id, hardware_id })
 	});
 
-	if (response.status == 200) {
+	const { valid } = await response.json();
+
+	if (valid) {
 		return new Response(
 			JSON.stringify({
 				valid: true,
@@ -26,7 +28,7 @@ export async function POST({ request, params, url, cookies }) {
 				message: 'Ungültiger Lizenzschlüssel.'
 			}),
 			{
-				status: 300
+				status: 200
 			}
 		);
 	}
